@@ -22,6 +22,8 @@ export default function Showroom({
     }
   }, [selected]);
 
+  console.log(products);
+
   return (
     <div className="container mx-auto">
       <div className="flex align-center justify-between container mx-auto border border-gray-200 py-3 border-2 border-x-0 border-t-0">

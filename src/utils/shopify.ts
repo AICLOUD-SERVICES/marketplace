@@ -1,9 +1,10 @@
 import Client from "shopify-buy";
 
 export const shopifyClient = Client.buildClient({
-  storefrontAccessToken: "37bc9ba977eee635ba5a6902d8341a3a",
-  domain: "themarketplace54.myshopify.com",
-  apiVersion: "2023-04",
+  storefrontAccessToken:
+    process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN || "",
+  domain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || "",
+  apiVersion: "2022-10",
 });
 
 export const parseShopifyResponse = (response: any) =>

@@ -3,8 +3,10 @@ import { parseShopifyResponse, shopifyClient } from "@/utils/shopify";
 
 const getCollections = async () => {
   const collections = await shopifyClient.collection.fetchAllWithProducts();
+  const shop = await shopifyClient.shop.fetchInfo();
   const res = await parseShopifyResponse(collections);
-  console.log(res);
+  const resShop = await parseShopifyResponse(shop);
+  console.log(resShop);
   return res;
 };
 
