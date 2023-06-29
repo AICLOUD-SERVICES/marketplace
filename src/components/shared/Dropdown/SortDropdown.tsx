@@ -1,6 +1,7 @@
 import useOutsideAlerter from "@/hooks/useOutsideClick";
 import { sortProducts } from "@/utils/sort";
 import React, { useRef, useState } from "react";
+import DropdownItem from "../DropdownItem/DropdownItem";
 
 const APLHABETICALLY_ASC = "alphabetically, a-z";
 const APLHABETICALLY_DESC = "alphabetically, z-a";
@@ -26,7 +27,7 @@ const SortDropdown = ({
   useOutsideAlerter(wrapperRef, handleClosePopup);
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left" ref={wrapperRef}>
       <div>
         <button
           type="button"
@@ -53,98 +54,68 @@ const SortDropdown = ({
       </div>
       {open && (
         <div
-          ref={wrapperRef}
-          className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className="fixed sm:absolute right-0 z-10 mt-2 w-full sm:w-56 origin-top-right sm:rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
           tabIndex={-1}
         >
           <div className="py-1" role="none">
-            <button
-              className={`text-gray-700 block px-4 py-2 text-sm cursor-pointer w-full text-left hover:bg-gray-100 ${
-                order === APLHABETICALLY_ASC && "bg-gray-200"
-              }`}
-              role="menuitem"
-              id="menu-item-0"
-              onClick={() => {
+            <DropdownItem
+              handleClick={() => {
                 setProducts(sortProducts(products, "title", "asc"));
                 setOrder(APLHABETICALLY_ASC);
                 setOpen(false);
               }}
-            >
-              {APLHABETICALLY_ASC}
-            </button>
-            <button
-              className={`text-gray-700 block px-4 py-2 text-sm cursor-pointer w-full text-left hover:bg-gray-100 ${
-                order === APLHABETICALLY_DESC && "bg-gray-200"
-              }`}
-              role="menuitem"
-              id="menu-item-0"
-              onClick={() => {
-                setProducts(sortProducts(products, "title", "desc"));
+              title={APLHABETICALLY_ASC}
+              order={order}
+            />
+            <DropdownItem
+              handleClick={() => {
+                setProducts(sortProducts(products, "title", "asc"));
                 setOrder(APLHABETICALLY_DESC);
                 setOpen(false);
               }}
-            >
-              {APLHABETICALLY_DESC}
-            </button>
-            <button
-              className={`text-gray-700 block px-4 py-2 text-sm cursor-pointer w-full text-left hover:bg-gray-100 ${
-                order === PRICE_ASC && "bg-gray-200"
-              }`}
-              role="menuitem"
-              id="menu-item-0"
-              onClick={() => {
+              title={APLHABETICALLY_DESC}
+              order={order}
+            />
+
+            <DropdownItem
+              handleClick={() => {
                 setProducts(sortProducts(products, "price", "asc"));
                 setOrder(PRICE_ASC);
                 setOpen(false);
               }}
-            >
-              {PRICE_ASC}
-            </button>
-            <button
-              className={`text-gray-700 block px-4 py-2 text-sm cursor-pointer w-full text-left hover:bg-gray-100 ${
-                order === PRICE_DESC && "bg-gray-200"
-              }`}
-              role="menuitem"
-              id="menu-item-0"
-              onClick={() => {
+              title={PRICE_ASC}
+              order={order}
+            />
+            <DropdownItem
+              handleClick={() => {
                 setProducts(sortProducts(products, "price", "desc"));
                 setOrder(PRICE_DESC);
                 setOpen(false);
               }}
-            >
-              {PRICE_DESC}
-            </button>
-            <button
-              className={`text-gray-700 block px-4 py-2 text-sm cursor-pointer w-full text-left hover:bg-gray-100 ${
-                order === DATE_ASC && "bg-gray-200"
-              }`}
-              role="menuitem"
-              id="menu-item-0"
-              onClick={() => {
+              title={PRICE_DESC}
+              order={order}
+            />
+            <DropdownItem
+              handleClick={() => {
                 setProducts(sortProducts(products, "createdAt", "asc"));
                 setOrder(DATE_ASC);
                 setOpen(false);
               }}
-            >
-              {DATE_ASC}
-            </button>
-            <button
-              className={`text-gray-700 block px-4 py-2 text-sm cursor-pointer w-full text-left hover:bg-gray-100 ${
-                order === DATE_DESC && "bg-gray-200"
-              }`}
-              role="menuitem"
-              id="menu-item-0"
-              onClick={() => {
+              title={DATE_ASC}
+              order={order}
+            />
+            <DropdownItem
+              handleClick={() => {
                 setProducts(sortProducts(products, "createdAt", "desc"));
                 setOrder(DATE_DESC);
                 setOpen(false);
               }}
-            >
-              {DATE_DESC}
-            </button>
+              title={DATE_DESC}
+              order={order}
+            />
           </div>
         </div>
       )}

@@ -1,5 +1,5 @@
 import useOutsideAlerter from "@/hooks/useOutsideClick";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const Dropdown = ({
   collections,
@@ -16,10 +16,13 @@ const Dropdown = ({
   const handleClosePopup = () => {
     setOpen(false);
   };
+
+  console.log(open);
+
   useOutsideAlerter(wrapperRef, handleClosePopup);
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left" ref={wrapperRef}>
       <div>
         <button
           type="button"
@@ -27,7 +30,9 @@ const Dropdown = ({
           id="menu-button"
           aria-expanded="true"
           aria-haspopup="true"
-          onClick={() => setOpen(!open)}
+          onClick={() => {
+            setOpen(!open);
+          }}
         >
           <span className="leading-[18px]">collection</span>
           <svg
@@ -46,14 +51,13 @@ const Dropdown = ({
       </div>
       {open && (
         <div
-          ref={wrapperRef}
-          className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className="fixed sm:absolute left-0 z-10 mt-2 w-full sm:w-56 origin-top-right sm:rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
           tabIndex={-1}
         >
-          <div className="py-1" role="none">
+          <div className="py-1 w-full" role="none">
             {collections.length
               ? collections.map((e: any, i: number) => (
                   <button

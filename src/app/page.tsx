@@ -1,4 +1,4 @@
-import ProductCardGrid from "@/components/ProductCardGrid";
+import ProductCardGrid from "@/components/shared/ProductCardGrid/ProductCardGrid";
 import { parseShopifyResponse, shopifyClient } from "@/utils/shopify";
 
 const getProducts = async () => {

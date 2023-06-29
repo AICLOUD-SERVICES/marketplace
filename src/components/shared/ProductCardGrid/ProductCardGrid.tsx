@@ -1,6 +1,15 @@
+"use client";
+
+import classNames from "classnames";
 import React from "react";
 
-const ProductCardGrid = ({ data }: { data: any }) => {
+const ProductCardGrid = ({
+  data,
+  column = 1,
+}: {
+  data: any;
+  column?: number;
+}) => {
   const getRange = (variants: any) => {
     const range = variants.length && variants.map((e: any) => e.price.amount);
     const uniqueRange = [...new Set<number>(range)];
@@ -15,14 +24,28 @@ const ProductCardGrid = ({ data }: { data: any }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div
+      className={classNames(
+        `container mx-auto grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`,
+        column === 2 && "grid-cols-2",
+        column === 3 && "grid-cols-3"
+      )}
+    >
       {data.length
         ? data.map((e: any) => (
             <div
               key={e.id}
-              className="cursor-pointer border border-gray-200 rounded-lg overflow-hidden flex flex-col align-center justify-between"
+              className={classNames(
+                "cursor-pointer overflow-hidden flex flex-col justify-between",
+                column !== 3 && "rounded-lg border border-gray-200"
+              )}
             >
-              <div className="h-[350px] overflow-hidden relative">
+              <div
+                className={classNames(
+                  "sm:h-[350px] overflow-hidden relative",
+                  column !== 1 ? "h-[150px]" : "h-[350px]"
+                )}
+              >
                 <img
                   className="block h-full w-full object-cover"
                   src={e.images[0]?.src}
@@ -34,9 +57,14 @@ const ProductCardGrid = ({ data }: { data: any }) => {
                   </div>
                 )}
               </div>
-              <div className="p-3">
-                <p className="text-xs">{e.title}</p>
-                <div className="flex align-center justify-between mt-5">
+              <div
+                className={classNames("p-3", column === 3 && "hidden sm:block")}
+              >
+                <p className="text-xs font-bold uppercase truncate">
+                  {e.title}
+                </p>
+                <p className="text-xs truncate mt-2">{e.description}</p>
+                <div className="flex items-center justify-between mt-5">
                   <p className="text-xs">{getRange(e.variants)}</p>
                   <p className="uppercase underline font-bold text-xs">
                     view item

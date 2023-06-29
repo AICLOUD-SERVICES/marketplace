@@ -1,4 +1,4 @@
-import Showroom from "@/components/Showroom";
+import Showroom from "@/components/layout/Showroom";
 import { parseShopifyResponse, shopifyClient } from "@/utils/shopify";
 
 const getCollections = async () => {
