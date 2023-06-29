@@ -29,7 +29,7 @@ const Dropdown = ({
           aria-haspopup="true"
           onClick={() => setOpen(!open)}
         >
-          <span className="leading-[18px]">{selected.title}</span>
+          <span className="leading-[18px]">collection</span>
           <svg
             className="-mr-1 h-5 w-5 text-gray-400"
             viewBox="0 0 20 20"

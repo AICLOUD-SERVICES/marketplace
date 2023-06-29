@@ -30,7 +30,7 @@ const SortDropdown = ({
       <div>
         <button
           type="button"
-          className="inline-flex w-full justify-center gap-x-1 rounded-md bg-white text-xs font-semibold text-gray-900 shadow-sm hover:bg-gray-50"
+          className="inline-flex w-full justify-center gap-x-1 rounded-md bg-white text-xs font-semibold text-gray-900 hover:bg-gray-50"
           id="menu-button"
           aria-expanded="true"
           aria-haspopup="true"
