@@ -26,7 +26,7 @@ const ProductCardGrid = ({
   return (
     <div
       className={classNames(
-        `container mx-auto grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`,
+        `container mx-auto grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-3`,
         column === 2 && "grid-cols-2",
         column === 3 && "grid-cols-3"
       )}
@@ -64,11 +64,15 @@ const ProductCardGrid = ({
                   {e.title}
                 </p>
                 <p className="text-xs truncate mt-2">{e.description}</p>
-                <div className="flex items-center justify-between mt-5">
-                  <p className="text-xs">{getRange(e.variants)}</p>
-                  <p className="uppercase underline font-bold text-xs">
-                    view item
+                <div className="flex items-center justify-between mt-2">
+                  <p className="text-[10px] sm:text-xs font-bold">
+                    {getRange(e.variants)}
                   </p>
+                  {column === 1 && (
+                    <p className="uppercase underline font-bold text-xs">
+                      view item
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
