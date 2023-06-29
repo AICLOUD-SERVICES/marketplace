@@ -13,6 +13,7 @@ const ProductCardGrid = ({ data }: { data: any }) => {
 
     return `$${minPrice}`;
   };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {data.length
@@ -21,7 +22,7 @@ const ProductCardGrid = ({ data }: { data: any }) => {
               key={e.id}
               className="cursor-pointer border border-gray-200 rounded-lg overflow-hidden flex flex-col align-center justify-between"
             >
-              <div className="h-[300px] overflow-hidden relative">
+              <div className="h-[350px] overflow-hidden relative">
                 <img
                   className="block h-full w-full object-cover"
                   src={e.images[0]?.src}
