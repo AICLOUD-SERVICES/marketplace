@@ -7,7 +7,6 @@ import ColumnSwitcher from "../components/shared/ColumnSwitcher/ColumnSwitcher";
 import { useColumnChange } from "@/providers/ColumnSwitcher";
 import Pagination from "../components/shared/Pagination/Pagination";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
 import { calculateTotalPages } from "@/utils/common";
 
 export default function Showroom({
@@ -24,9 +23,6 @@ export default function Showroom({
   const { column } = useColumnChange();
   const [totalPages, setTotalPages] = useState(0);
 
-  const router = useRouter();
-  const { pathname, query } = router;
-
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
 
@@ -34,8 +30,6 @@ export default function Showroom({
   const perPage = 3; // Number of collections per page
   const startIndex = (currentPage - 1) * perPage;
   const endIndex = currentPage * perPage;
-
-  console.log(router);
 
   useEffect(() => {
     const products =
