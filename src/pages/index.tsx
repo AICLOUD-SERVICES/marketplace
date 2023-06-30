@@ -52,18 +52,9 @@ export const getServerSideProps = async (context: {
 
   const paginatedData = data.length && data.slice(startIndex, endIndex);
 
-  if (currentPage > totalPages || currentPage <= 0) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false, // Set this to true for permanent redirects
-      },
-    };
-  }
-
   return {
     props: {
-      data: paginatedData && paginatedData.length ? paginatedData : data,
+      data: paginatedData,
       totalPages,
       currentPage,
     },

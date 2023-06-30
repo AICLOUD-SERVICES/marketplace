@@ -1,6 +1,5 @@
 "use client";
-import Link from "next/link";
-import { useRouter, } from "next/router";
+import { useRouter } from "next/router";
 
 interface PaginationProps {
   currentPage: number;
@@ -11,15 +10,21 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages }) => {
   const router = useRouter();
 
   const renderPageLink = (page: number, label: string) => {
-    const updatedUrl = `${router.pathname}?page=${page}`;
     return (
-      <Link
-        href={updatedUrl}
-        key={page}
-        className={currentPage === page ? "active" : ""}
+      <button
+        className="cursor-pointer"
+        onClick={() => {
+          router.push({
+            pathname: router.pathname,
+            query: {
+              ...router.query,
+              page,
+            },
+          });
+        }}
       >
         {label}
-      </Link>
+      </button>
     );
   };
 

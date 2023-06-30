@@ -7,6 +7,7 @@ import ColumnSwitcher from "../components/shared/ColumnSwitcher/ColumnSwitcher";
 import { useColumnChange } from "@/providers/ColumnSwitcher";
 import Pagination from "../components/shared/Pagination/Pagination";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
 import { calculateTotalPages } from "@/utils/common";
 
 export default function Showroom({
@@ -16,12 +17,13 @@ export default function Showroom({
 }: {
   data: any;
   collections: any;
-  collection?: any;
+  collection: any;
 }) {
-  const [selected, setSelected] = useState<any>(collection || collections[0]);
+  const [selected, setSelected] = useState<any>(collection);
   const [products, setProducts] = useState<any>([]);
   const { column } = useColumnChange();
   const [totalPages, setTotalPages] = useState(0);
+  const router = useRouter();
 
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
@@ -46,8 +48,6 @@ export default function Showroom({
 
     if (paginatedCollections.length) {
       setProducts(paginatedCollections);
-    } else {
-      setProducts(products);
     }
   }, [selected, currentPage]);
 
@@ -70,9 +70,15 @@ export default function Showroom({
             <SortDropdown products={products} setProducts={setProducts} />
           </div>
         </div>
-        <div className="mt-5 container mx-auto px-5">
-          <ProductCardGrid data={products} column={column} />
-        </div>
+        {!products.length ? (
+          <div className="mt-5 container mx-auto px-5 text-center h-[70vh] flex flex-cols items-center justify-center">
+            <p> No products Found</p>
+          </div>
+        ) : (
+          <div className="mt-5 container mx-auto px-5">
+            <ProductCardGrid data={products} column={column} />
+          </div>
+        )}
       </div>
 
       {products.length && totalPages > 1 ? (

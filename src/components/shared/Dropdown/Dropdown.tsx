@@ -1,4 +1,5 @@
 import useOutsideAlerter from "@/hooks/useOutsideClick";
+import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 
 const Dropdown = ({
@@ -12,6 +13,8 @@ const Dropdown = ({
 }) => {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
+
+  const router = useRouter();
 
   const handleClosePopup = () => {
     setOpen(false);
@@ -68,6 +71,19 @@ const Dropdown = ({
                     onClick={() => {
                       setSelected(e);
                       setOpen(false);
+                      console.log(router);
+                      if (e.handle === "all") {
+                        router.push("/showroom");
+                        return;
+                      }
+                      router.replace(
+                        {
+                          pathname: "/showroom/[collection]",
+                          query: { collection: e.handle },
+                        },
+                        undefined,
+                        { shallow: true }
+                      );
                     }}
                     disabled={e.handle === selected.handle}
                   >
