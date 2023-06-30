@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter, } from "next/router";
 
 interface PaginationProps {
   currentPage: number;
@@ -7,8 +8,10 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages }) => {
+  const router = useRouter();
+
   const renderPageLink = (page: number, label: string) => {
-    const updatedUrl = `/showroom?page=${page}`;
+    const updatedUrl = `${router.pathname}?page=${page}`;
     return (
       <Link
         href={updatedUrl}
@@ -40,7 +43,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages }) => {
     <div className="flex items-center justify-center gap-2 my-4 text-xs">
       {renderPreviousLink()}
       <div>
-        {currentPage}/{totalPages}
+        {currentPage} of {totalPages}
       </div>
       {renderNextLink()}
     </div>

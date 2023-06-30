@@ -3,26 +3,29 @@ import Dropdown from "@/components/shared/Dropdown/Dropdown";
 import { useEffect, useState } from "react";
 import ProductCardGrid from "@/components/shared/ProductCardGrid/ProductCardGrid";
 import SortDropdown from "@/components/shared/Dropdown/SortDropdown";
-import ColumnSwitcher from "../shared/ColumnSwitcher/ColumnSwitcher";
+import ColumnSwitcher from "../components/shared/ColumnSwitcher/ColumnSwitcher";
 import { useColumnChange } from "@/providers/ColumnSwitcher";
-import Pagination from "../shared/Pagination/Pagination";
+import Pagination from "../components/shared/Pagination/Pagination";
 import { useSearchParams } from "next/navigation";
-
-const calculateTotalPages = (totalItems: number, itemsPerPage: number) => {
-  return Math.ceil(totalItems / itemsPerPage);
-};
+import { useRouter } from "next/router";
+import { calculateTotalPages } from "@/utils/common";
 
 export default function Showroom({
   data,
   collections,
+  collection,
 }: {
   data: any;
   collections: any;
+  collection?: any;
 }) {
-  const [selected, setSelected] = useState<any>(collections[1]);
+  const [selected, setSelected] = useState<any>(collection || collections[0]);
   const [products, setProducts] = useState<any>([]);
   const { column } = useColumnChange();
   const [totalPages, setTotalPages] = useState(0);
+
+  const router = useRouter();
+  const { pathname, query } = router;
 
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
@@ -31,6 +34,8 @@ export default function Showroom({
   const perPage = 3; // Number of collections per page
   const startIndex = (currentPage - 1) * perPage;
   const endIndex = currentPage * perPage;
+
+  console.log(router);
 
   useEffect(() => {
     const products =
@@ -45,8 +50,10 @@ export default function Showroom({
     const paginatedCollections =
       products.length && products.slice(startIndex, endIndex);
 
-    if (paginatedCollections) {
+    if (paginatedCollections.length) {
       setProducts(paginatedCollections);
+    } else {
+      setProducts(products);
     }
   }, [selected, currentPage]);
 
