@@ -17,8 +17,6 @@ const Dropdown = ({
     setOpen(false);
   };
 
-  console.log(open);
-
   useOutsideAlerter(wrapperRef, handleClosePopup);
 
   return (
